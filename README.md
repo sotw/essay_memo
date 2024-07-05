@@ -1,4 +1,4 @@
-![essay_memo](https://github.com/sotw/essay_memo/blob/main/001small.png?raw=true)
+![essay_memo](https://github.com/sotw/essay_memo/blob/master/001small.png?raw=true)
 
 # Essay Memo
 
