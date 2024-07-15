@@ -85,6 +85,7 @@ def verify():
 	parser.add_argument('-g', '--global', dest='globalcomment', action = 'store_true', default=False, help='global comment without specific stock')
 	parser.add_argument('-r', '--read', dest='read', action = 'store_true', default=False, help='dump records')
 	parser.add_argument('-s', '--show', dest='show', action = 'store_true', default=False, help='show existing records')
+	parser.add_argument('-t', '--showtitles', dest='show_all_titles', action = 'store_true', default=False, help='show all titles inside databse so far')
 	parser.add_argument('-k', '--kill', dest='kill', action = 'store_true', default=False, help='remove a memo')
 	parser.add_argument('-l', '--list', dest='listme', action = 'store_true', default=False, help='old interface, reserved')
 	parser.add_argument('-u', '--update', dest='updateme', action = 'store_true', default=False, help='update')
@@ -102,7 +103,7 @@ def verify():
 		print("Flag conflict, some flag are exclusive")
 		parser.print_help()
 		exit()
-	if not args.read and not args.kill and not args.add and not args.listme and not args.updateme and not args.show:
+	if not args.read and not args.kill and not args.add and not args.listme and not args.updateme and not args.show and not args.show_all_titles:
 		parser.print_help()
 		exit()
 	setup_logging(log_level)
@@ -166,6 +167,24 @@ def	doDump():
 			print(clrTx(f"{item}","YELLOW"))
 			toggleColor=True
 
+def doDumpDistinctOneColumn(COLNAME):
+	global stockdb
+	global cursor
+	global ScreenI
+	ScreenI.clear()
+	cursor.execute(f"SELECT DISTINCT {COLNAME} FROM EOI")
+	for record in cursor.fetchall():
+		#print(record)
+		_MY_TITLE=f"{record[0]}"
+		ScreenI.append(f"{_MY_TITLE}")			
+	toggleColor=False
+	for item in ScreenI:
+		if toggleColor is True:
+			print(clrTx(f"{item}","CYAN"))
+			toggleColor=False
+		else:
+			print(clrTx(f"{item}","YELLOW"))
+			toggleColor=True
 
 def doDumpEx(TITLE):
 	global ScreenI
@@ -246,6 +265,8 @@ def main():
 		doWriteLn(tTarget)
 	elif args.updateme:
 		pass
+	elif args.show_all_titles:
+		doDumpDistinctOneColumn('TITLE')	
 	stockdb.close()
 
 if __name__ == '__main__':
