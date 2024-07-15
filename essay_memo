@@ -1,0 +1,8 @@
+PKGFOLDER=~/.essay_memo
+exeName=$0
+exeName=${exeName##*/}
+exeName=${exeName%.*}
+exeName=$exeName.py
+python3 $PKGFOLDER/$exeName $@
+#hint:For batch file transformation
+#http://stackoverflow.com/questions/3432851/dos-bat-file-equivalent-to-unix-basename-command
