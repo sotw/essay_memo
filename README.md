@@ -32,9 +32,15 @@ There are also global memo for some insight sparking on your head.
    essay_memo -k [number]
    ```
 
+5. Show all titles generated so far
+
+   ```
+   essay_memo -t
+   ```
+
 # What's new
 
-[FEATURE] COROUTIE implemented when issue essay_memo -u
+[FEATURE] show all titles generated so far by issuing essay_memo -t
 
 # To do
 
