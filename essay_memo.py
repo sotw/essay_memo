@@ -220,11 +220,14 @@ def doWriteLn(msg):
 		doDump()
 	else:
 		msgs = msg.split(":")
-		if(len(msgs) !=2):
+		if(len(msgs) <= 1):
 			print(clrTx("you need to input [TITLE]:[INFORMATION]",'YELLOW'))
-		cursor.execute(f"INSERT OR REPLACE INTO EOI(TITLE,COMMENT) values('{msgs[0]}','{msgs[1]}')")
-		stockdb.commit()
-		doDumpEx(f'{msgs[0]}')
+		else:
+			headtag = msgs[0]
+			message = ':'.join(msgs[1:])
+			cursor.execute(f"INSERT OR REPLACE INTO EOI(TITLE,COMMENT) values('{headtag}','{message}')")
+			stockdb.commit()
+			doDumpEx(f'{msgs[0]}')
 
 def doKillALn(msg):
     global DB
