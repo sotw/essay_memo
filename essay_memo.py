@@ -85,6 +85,7 @@ def verify():
 	parser.add_argument('-g', '--global', dest='globalcomment', action = 'store_true', default=False, help='global comment without specific stock')
 	parser.add_argument('-r', '--read', dest='read', action = 'store_true', default=False, help='dump records')
 	parser.add_argument('-s', '--show', dest='show', action = 'store_true', default=False, help='show existing records')
+	parser.add_argument('-o', '--onlycontent', dest='onlycontent', action = 'store_true', default=False, help='show existing records and only content')
 	parser.add_argument('-t', '--showtitles', dest='show_all_titles', action = 'store_true', default=False, help='show all titles inside databse so far')
 	parser.add_argument('-k', '--kill', dest='kill', action = 'store_true', default=False, help='remove a memo')
 	parser.add_argument('-l', '--list', dest='listme', action = 'store_true', default=False, help='old interface, reserved')
@@ -204,7 +205,10 @@ def doDumpEx(TITLE):
 		_TIMESTAMP=clrTx(f"{record[2]}","GREY65")
 		_TITLE=clrTx(f"{record[1]:>6}","BOLD")
 		_MYTHOUGHT=clrTx(f"{record[3]}","CYAN")
-		ScreenI.append(f"{_MSGID}|{_TIMESTAMP}|{_TITLE}|{_MYTHOUGHT}")
+		if args.onlycontent:
+			ScreenI.append(f"{_MYTHOUGHT}")
+		else:
+			ScreenI.append(f"{_MSGID}|{_TIMESTAMP}|{_TITLE}|{_MYTHOUGHT}")
 	
 	for item in ScreenI:
 		print(item)
